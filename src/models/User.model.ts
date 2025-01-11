@@ -1,16 +1,23 @@
 import mongoose, {Schema, model} from "mongoose";
-import { IUser } from "../utils/interfaces.util";
-import { createSchema } from "../utils/helper.util";
+import { IUser } from "../types/interfaces";
 
-const userFields = {
+
+const UserSchema: Schema<IUser> = new Schema(
+    {
         name: {type: String, required: true},
         email: {type: String, required: true, unique: true, lowercase: true, trim: true},
         password: {type: String, required: true, minlength: 6},
+        resetPasswordToken: {type: String, required: false},
+        resetPasswordTokenExpires: {type: Date, required: false},
         role: {type: String, default: 'shopper'},
-        isActive: {type: String, default: true}
-}
+        isActive: {type: String, default: true},
+        isVerified: {type: Boolean, default: false}
+     },
+     {
+        timestamps: true
+     }
+)
 
-const UserSchema = createSchema(userFields)
 
 const User = mongoose.model<IUser>('User', UserSchema)
 export default User;
