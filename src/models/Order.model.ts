@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose"
 import { IOrder } from "../types/interfaces"
+import { OrderStatus, PaymentStatus } from "../utils/enums.util";
 
 const OrderSchema: Schema<IOrder> = new Schema( 
     {
@@ -18,8 +19,8 @@ const OrderSchema: Schema<IOrder> = new Schema(
             zipcode: {type: String, required: true},
             country: {type: String, required: true}
         },
-        paymentStatus: {type: String, enum: ['Pending', 'Pailed', 'Failed'], default: 'Pending'},
-        orderStatus: {type: String, enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'], default: 'Processing'},
+        paymentStatus: {type: String, enum: Object.values(PaymentStatus), default: PaymentStatus.Pending},
+        orderStatus: {type: String, enum: Object.values(OrderStatus), default: OrderStatus.Processing},
         totalPrice: {type: Number, required: true, min: 0}
     },
     {
