@@ -1,5 +1,5 @@
 import mongoose, { mongo, Schema } from "mongoose";
-import { IPayment } from "../types/interfaces";
+import { IPayment } from "../types_/interfaces";
 import { PaymentStatus } from "../utils/enums.util";
 
 const PaymentSchema: Schema<IPayment> = new Schema( 

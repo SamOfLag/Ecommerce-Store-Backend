@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { signup, signin, verifyEmail, forgotPassword, resetPassword } from "../services/authServices";
+import { signup, signin, verifyEmail, forgotPassword, resetPassword, adminSignin } from "../services/authServices";
 import { asyncHandler } from "../utils/asyncHandler";
 import ErrorResponse from "../utils/errorResponse.util";
 
@@ -14,11 +14,11 @@ import ErrorResponse from "../utils/errorResponse.util";
 
 export const handleSignup = asyncHandler(async (req: Request, res: Response) => {
 
-    const { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    const { firstName, lastName, email, password } = req.body;
+    if (!firstName || !lastName || !email || !password) {
         return res.status(400).json({ message: "All fields are required" });
       }
-    const user = await signup(name, email, password);
+    const user = await signup(firstName, lastName, email, password);
 
     res.status(201).json({ message: "User created successfully", data: null, error: false });
     return
@@ -80,4 +80,10 @@ export const handleResetPassowrd = asyncHandler(async (req: Request, res: Respon
 
     const result = await resetPassword(password, token)
     res.status(200).json({message: result, data: null, error: false})
+})
+
+export const handdleAdminLogin = asyncHandler(async (req: Request, res: Response) => {
+    const {email, password} = req.body
+    const token = await adminSignin(email, password)
+    res.status(200).json({message: 'Login successful', data: token, error: false})
 })

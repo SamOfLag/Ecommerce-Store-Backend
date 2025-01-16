@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { ICart } from "../types/interfaces";
+import { ICart } from "../types_/interfaces";
 
 const CartSchema: Schema<ICart> = new Schema(
     {

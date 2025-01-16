@@ -1,7 +1,8 @@
 import { Document, Types } from "mongoose";
 
 export interface IUser extends Document {
-    name: string
+    firstName: string
+    lastName: string
     email: string
     password: string
     resetPasswordToken?: string | undefined
@@ -27,25 +28,27 @@ export interface IProduct extends Document {
     isFeatured: boolean
 }
 
+export interface ICartItem {
+    _id?: any;
+    productId: Types.ObjectId
+    quantity: number
+}
+
 export interface ICart extends Document {
     userId: Types.ObjectId;
-    items:
-        {
-            productId: Types.ObjectId
-            quantity: number
-        }[];
-
+    items: ICartItem[];
     totalPrice: number;
+}
+
+export interface IOrderItem {
+    productId: Types.ObjectId
+    quantity: number
+    price: number
 }
 
 export interface IOrder extends Document {
     userId: Types.ObjectId;
-    items:
-        {
-            productId: Types.ObjectId
-            quantity: number
-            price: number
-        }[];
+    items: IOrderItem[];
     shippingAddress: {
         street: string
         city: string
@@ -73,8 +76,39 @@ export interface ICategory extends Document {
 }
 
 export interface IAuthRequest extends Request {
+    userRole?: string;
     headers: {
         authorization?: string
     } & Request['headers']
     userId?: string
+}
+
+export interface IAddToCartBody {
+    productId: string;
+    quantity: number;
+}
+
+export interface ICreateOrderBody {
+    shippingAddress: {
+        street: string;
+        city: string;
+        state: string;
+        zipcode: string;
+        country: string;
+      };
+      paymentReference: string;
+}
+
+export interface IPaystackVerificationResponse {
+    status: boolean
+    message: string
+    data: {
+        amount: number
+        currency: string
+        status: string
+        reference: string
+        customer: {
+            email: string
+        }
+    }
 }

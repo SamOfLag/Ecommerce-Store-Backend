@@ -1,4 +1,4 @@
-import { IMailOptions } from "../types/interfaces";
+import { IMailOptions } from "../types_/interfaces";
 import nodemailer from 'nodemailer'
 import mg from 'nodemailer-mailgun-transport'
 

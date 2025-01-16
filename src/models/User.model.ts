@@ -1,11 +1,12 @@
 import mongoose, {Schema, model} from "mongoose";
-import { IUser } from "../types/interfaces";
+import { IUser } from "../types_/interfaces";
 import { UserRole } from "../utils/enums.util";
 
 
 const UserSchema: Schema<IUser> = new Schema(
     {
-        name: {type: String, required: true},
+        firstName: {type: String, required: true},
+        lastName: {type: String, required: true},
         email: {type: String, required: true, unique: true, lowercase: true, trim: true},
         password: {type: String, required: true, minlength: 6},
         resetPasswordToken: {type: String, required: false},

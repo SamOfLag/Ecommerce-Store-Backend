@@ -1,4 +1,4 @@
-import { IProduct } from "../types/interfaces";
+import { IProduct } from "../types_/interfaces";
 import Product from "../models/Product.model";
 import redisClient from "../config/redisClient";
 

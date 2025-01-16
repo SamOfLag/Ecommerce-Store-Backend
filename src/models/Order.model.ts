@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose"
-import { IOrder } from "../types/interfaces"
+import { IOrder } from "../types_/interfaces"
 import { OrderStatus, PaymentStatus } from "../utils/enums.util";
 
 const OrderSchema: Schema<IOrder> = new Schema( 
