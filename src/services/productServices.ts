@@ -28,7 +28,23 @@ export const getProducts = async (category?: string): Promise<IProduct[]> => {
  * @returns {Promise<IProduct[]>} - List of matching products
  */
 
-export const searchProducts = async (query: string): Promise<IProduct[]> => {
-    const regex = new RegExp(query, 'i')
-    return Product.find({name: regex})
-}
+export const searchProducts = async (query: string, page = 1, limit = 10, sortBy: string = "priceAsc"): Promise<IProduct[]> => {
+    const regex = new RegExp(query, "i");
+    const skip = (page - 1) * limit;
+
+    const sortOptions: Record<string, any> = {
+        priceAsc: { price: 1 },
+        priceDesc: { price: -1 },
+    };
+
+    return Product.find({
+        $or: [
+            { name: regex },
+            { description: regex },
+            { category: regex },
+        ],
+    })
+        .skip(skip)
+        .limit(limit)
+        .sort(sortOptions[sortBy] || {});
+};

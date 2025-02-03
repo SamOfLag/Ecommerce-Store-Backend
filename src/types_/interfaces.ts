@@ -13,6 +13,7 @@ export interface IUser extends Document {
 }
 
 export interface IMailOptions {
+    verificationLink: string;
     email: string
     subject: string
     message: string
@@ -111,4 +112,8 @@ export interface IPaystackVerificationResponse {
             email: string
         }
     }
+}
+// Define the type for the data passed to the EJS template
+export interface EjsTemplateData {
+    verificationLink: string;
 }

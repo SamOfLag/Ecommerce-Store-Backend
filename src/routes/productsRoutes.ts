@@ -6,12 +6,12 @@ import authMiddleware from "../middlewares/auth.middleware";
 const productRouter = Router()
 
 // PRODUCT ROUTERS FOR SHOPPERS
-productRouter.get('/get', handleGetProducts)
+productRouter.get('/', handleGetProducts)
 productRouter.get('/search', handleSearchProducts)
 
 // PRODUCT ROUTERS FOR ADMINS
-productRouter.post('/add', requireRole('admin'), handleAddProduct)
-productRouter.put('/:id', requireRole('admin'), handleEditProduct)
-productRouter.delete('/:id', requireRole('admin'), handleDeleteProduct)
+productRouter.post('/add', requireRole('admin'), authMiddleware, handleAddProduct)
+productRouter.put('/:id', requireRole('admin'), authMiddleware, handleEditProduct)
+productRouter.delete('/:id', requireRole('admin'), authMiddleware, handleDeleteProduct)
 
 export default productRouter;
